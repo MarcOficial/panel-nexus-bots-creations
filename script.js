@@ -61,10 +61,8 @@ function showSection(section) {
 
                     <label>Método de pago</label>
                     <select name="pago">
-                        <option value="Transferencia bancaria">Transferencia bancaria</option>
-                        <option value="Bizum">Bizum</option>
                         <option value="PayPal">PayPal</option>
-                        <option value="Criptomonedas">Criptomonedas</option>
+                        <option value="Robux">Robux</option>
                     </select>
 
                     <h3>Conceptos del Presupuesto</h3>
