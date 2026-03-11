@@ -1,139 +1,43 @@
-const { jsPDF } = window.jspdf;
-
-// cargar presupuestos guardados
-let presupuestos = JSON.parse(localStorage.getItem("presupuestos")) || [];
-
-
-// cambiar páginas del panel
-function showPage(page){
-
-document.querySelectorAll(".page").forEach(p=>{
-p.style.display = "none";
-});
-
-document.getElementById(page).style.display = "block";
-
-actualizar();
-
-}
-
-showPage("dashboard");
-
-
-// crear presupuesto
-document.getElementById("form").addEventListener("submit", function(e){
-
-e.preventDefault();
-
-let cliente = document.getElementById("cliente").value;
-let discord = document.getElementById("discord").value;
-let servicio = document.getElementById("servicio").value;
-let descripcion = document.getElementById("descripcion").value;
-let precio = document.getElementById("precio").value;
-
-// número automático
-let numero = presupuestos.length + 1;
-
-let presupuesto = {
-
-numero,
-cliente,
-discord,
-servicio,
-descripcion,
-precio
-
-};
-
-presupuestos.push(presupuesto);
-
-// guardar JSON
-localStorage.setItem("presupuestos", JSON.stringify(presupuestos));
-
-this.reset();
-
-alert("Presupuesto creado correctamente");
-
-actualizar();
-
-showPage("lista");
-
-});
-
-
-// actualizar dashboard y lista
-function actualizar(){
-
-let total = document.getElementById("total");
-
-if(total){
-total.innerText = presupuestos.length;
-}
-
-let cont = document.getElementById("presupuestos");
-
-if(!cont) return;
-
-cont.innerHTML = "";
-
-presupuestos.forEach(p => {
-
-let div = document.createElement("div");
-
-div.className = "presupuesto";
-
-div.innerHTML = `
-
-<h3>Presupuesto #${p.numero}</h3>
-
-Cliente: ${p.cliente}<br>
-Servicio: ${p.servicio}<br>
-Precio: €${p.precio}<br><br>
-
-<button onclick="exportPDF(${p.numero})">Exportar PDF</button>
-
-`;
-
-cont.appendChild(div);
-
-});
-
-}
-
-
-// exportar presupuesto a PDF con logo
 function exportPDF(numero){
 
 let p = presupuestos.find(x => x.numero == numero);
 
 let doc = new jsPDF();
 
-// cargar logo
-let img = new Image();
-img.src = "nexus-bots-creations.png";
+doc.setFontSize(22);
+doc.text("Nexus Bots Creations",20,20);
 
-img.onload = function(){
+doc.setFontSize(16);
+doc.text("Factura / Presupuesto",20,35);
 
-doc.addImage(img, "PNG", 20, 10, 50, 20);
-
-doc.setFontSize(18);
-doc.text("Presupuesto #" + p.numero, 20, 40);
+doc.line(20,40,190,40);
 
 doc.setFontSize(12);
 
-doc.text("Cliente: " + p.cliente, 20, 60);
-doc.text("Discord: " + p.discord, 20, 70);
-doc.text("Servicio: " + p.servicio, 20, 80);
-doc.text("Descripción: " + p.descripcion, 20, 90);
-doc.text("Precio: €" + p.precio, 20, 100);
+doc.text("Presupuesto Nº: NBC-"+p.numero,20,55);
+doc.text("Cliente: "+p.cliente,20,65);
+doc.text("Discord: "+p.discord,20,75);
 
-doc.text("Empresa: Nexus Bots Creations", 20, 120);
-doc.text("Pago: PayPal / Robux", 20, 130);
+doc.line(20,85,190,85);
 
-doc.save("presupuesto-" + p.numero + ".pdf");
+doc.text("Servicio",20,100);
+doc.text("Descripción",80,100);
+doc.text("Precio",170,100);
 
-};
+doc.line(20,105,190,105);
+
+doc.text(p.servicio,20,115);
+doc.text(p.descripcion,80,115);
+doc.text("€"+p.precio,170,115);
+
+doc.line(20,140,190,140);
+
+doc.setFontSize(14);
+doc.text("TOTAL: €"+p.precio,150,160);
+
+doc.setFontSize(10);
+doc.text("Método de pago: PayPal / Robux",20,180);
+
+doc.save("presupuesto-"+p.numero+".pdf");
 
 }
-
-actualizar();
