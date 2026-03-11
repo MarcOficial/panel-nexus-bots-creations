@@ -2,93 +2,193 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Nexus Bots – Documento PDF</title>
+    <title>Nexus Bots Creations – Documento PDF</title>
+
+    <!-- Estilos generales -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Icono de pestaña -->
     <link rel="icon" type="image/png" href="Nexus Bots Creations.png">
+
+    <!-- Librería PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        body {
+            background: #e5e7eb;
+        }
+
+        #documentoPDF {
+            width: 210mm;
+            margin: 0 auto 30px auto;
+            padding: 20mm;
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+            font-family: Arial, sans-serif;
+        }
+
+        h1, h2, h3 {
+            margin: 0;
+        }
+
+        .seccion {
+            margin-top: 25px;
+        }
+
+        .titulo-seccion {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            border-left: 4px solid #2563eb;
+            padding-left: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        th, td {
+            border: 1px solid #d1d5db;
+            padding: 6px 8px;
+            font-size: 13px;
+        }
+
+        th {
+            background: #f3f4f6;
+        }
+
+        .totales {
+            width: 240px;
+            float: right;
+            margin-top: 15px;
+        }
+
+        .totales td {
+            border: none;
+            padding: 4px 0;
+        }
+
+        .totales tr:last-child td {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 11px;
+            color: #6b7280;
+        }
+    </style>
 </head>
-<body style="background:#e5e7eb;">
+
+<body>
 
 <div style="padding:20px; text-align:center;">
     <button class="primary" onclick="generarPDF()">Descargar PDF</button>
 </div>
 
-<!-- Documento A4 -->
-<div id="documentoPDF" style="width:210mm; margin:0 auto 30px auto; padding:20mm; background:white;">
+<!-- DOCUMENTO A4 -->
+<div id="documentoPDF">
 
+    <!-- ENCABEZADO -->
     <header style="display:flex; justify-content:space-between; align-items:center;">
-        <div style="display:flex; align-items:center; gap:10px;">
+        <div style="display:flex; align-items:center; gap:12px;">
             <img src="Nexus Bots Creations.png" style="height:70px;">
             <div>
                 <h2 style="margin:0;">Nexus Bots Creations</h2>
-                <p style="margin:0; font-size:12px;">Automatización, bots y soluciones digitales</p>
+                <p style="margin:0; font-size:12px; opacity:0.7;">
+                    Automatización, bots y soluciones digitales
+                </p>
+                <p style="margin:0; font-size:12px; opacity:0.7;">
+                    Propietario: Tú (empresa no registrada)
+                </p>
             </div>
         </div>
+
         <div style="text-align:right; font-size:12px;">
-            <p id="empresaNombre">Nexus Bots Creations</p>
-            <p id="empresaCif">CIF: X1234567Z</p>
-            <p id="empresaDir">Dirección: Calle Ejemplo 123, España</p>
-            <p id="empresaEmail">Email: contacto@nexusbots.com</p>
+            <p><strong>Documento:</strong> <span id="tipoDoc"></span></p>
+            <p><strong>Número:</strong> <span id="numDoc"></span></p>
+            <p><strong>Fecha:</strong> <span id="fechaDoc"></span></p>
         </div>
     </header>
 
     <hr style="margin:15px 0;">
 
-    <h1 id="tipoDoc" style="text-align:right; margin:0 0 10px 0;">DOCUMENTO</h1>
+    <!-- DATOS DEL CLIENTE -->
+    <div class="seccion">
+        <div class="titulo-seccion">Datos del Cliente</div>
 
-    <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:15px;">
-        <div>
-            <p><strong>Cliente:</strong> <span id="clienteNombre"></span></p>
-            <p><strong>Email:</strong> <span id="clienteEmail"></span></p>
-        </div>
-        <div style="text-align:right;">
-            <p><strong>Número:</strong> <span id="numDoc"></span></p>
-            <p><strong>Fecha:</strong> <span id="fechaDoc"></span></p>
-        </div>
+        <p><strong>Nombre:</strong> <span id="clienteNombre"></span></p>
+        <p><strong>Email:</strong> <span id="clienteEmail"></span></p>
+        <p><strong>Teléfono:</strong> <span id="clienteTelefono"></span></p>
+        <p><strong>Dirección:</strong> <span id="clienteDireccion"></span></p>
     </div>
 
-    <h3>Concepto</h3>
-    <p id="descripcionDoc" style="font-size:13px;"></p>
+    <!-- INFORMACIÓN DEL PROYECTO -->
+    <div class="seccion">
+        <div class="titulo-seccion">Información del Proyecto</div>
 
-    <h3>Detalle económico</h3>
-    <table style="font-size:13px;">
-        <tr>
-            <th>Descripción</th>
-            <th style="width:80px;">Precio</th>
-        </tr>
-        <tr>
-            <td id="tablaDesc"></td>
-            <td id="tablaPrecio"></td>
-        </tr>
-    </table>
+        <p><strong>Título:</strong> <span id="tituloProyecto"></span></p>
+        <p><strong>Descripción:</strong></p>
+        <p id="descripcionDoc" style="margin-left:10px;"></p>
 
-    <div style="margin-top:15px; font-size:13px; display:flex; justify-content:flex-end;">
-        <table style="width:220px;">
-            <tr>
-                <td>Subtotal</td>
-                <td style="text-align:right;"><span id="subtotal"></span> €</td>
-            </tr>
-            <tr>
-                <td>IVA (21%)</td>
-                <td style="text-align:right;"><span id="iva"></span> €</td>
-            </tr>
-            <tr>
-                <td><strong>Total</strong></td>
-                <td style="text-align:right;"><strong><span id="total"></span> €</strong></td>
-            </tr>
+        <p><strong>Plazo estimado:</strong> <span id="plazoDoc"></span></p>
+        <p><strong>Método de pago:</strong> <span id="pagoDoc"></span></p>
+        <p><strong>Estado:</strong> <span id="estadoDoc"></span></p>
+    </div>
+
+    <!-- TABLA DE ÍTEMS -->
+    <div class="seccion">
+        <div class="titulo-seccion">Conceptos del Presupuesto</div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Descripción</th>
+                    <th style="width:100px;">Precio</th>
+                </tr>
+            </thead>
+            <tbody id="tablaItemsPDF"></tbody>
         </table>
     </div>
 
-    <div style="margin-top:40px; font-size:12px;">
-        <p><strong>Condiciones:</strong> Este documento es generado automáticamente y es válido sin firma manuscrita.</p>
+    <!-- TOTALES -->
+    <table class="totales">
+        <tr>
+            <td>Subtotal:</td>
+            <td style="text-align:right;"><span id="subtotal"></span> €</td>
+        </tr>
+        <tr>
+            <td>IVA (21%):</td>
+            <td style="text-align:right;"><span id="iva"></span> €</td>
+        </tr>
+        <tr>
+            <td>Total:</td>
+            <td style="text-align:right;"><span id="total"></span> €</td>
+        </tr>
+    </table>
+
+    <div style="clear:both;"></div>
+
+    <!-- NOTAS -->
+    <div class="seccion">
+        <div class="titulo-seccion">Notas adicionales</div>
+        <p id="notasDoc" style="white-space:pre-line;"></p>
     </div>
 
-    <footer style="margin-top:40px; text-align:center; font-size:11px; color:#6b7280;">
-        Documento generado por el panel oficial de Nexus Bots Creations
+    <!-- PIE -->
+    <footer>
+        Documento generado automáticamente por el panel oficial de Nexus Bots Creations  
+        <br>Este documento no tiene validez fiscal (empresa no registrada)
     </footer>
 
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="presupuesto.js"></script>
 </body>
 </html>
+
