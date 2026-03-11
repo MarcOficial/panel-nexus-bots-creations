@@ -1,58 +1,94 @@
 body{
 margin:0;
-font-family:sans-serif;
-display:flex;
-background:#36393f;
+font-family:Arial;
+background:#1e1f22;
 color:white;
+display:flex;
 }
 
 .sidebar{
-width:220px;
-background:#2f3136;
+width:230px;
+background:#2b2d31;
 height:100vh;
 padding:20px;
 }
 
 .sidebar h2{
-margin-bottom:30px;
+margin-bottom:40px;
 }
 
 .sidebar button{
+
 width:100%;
-padding:10px;
-background:#5865f2;
+padding:12px;
+margin-bottom:10px;
 border:none;
+background:#5865f2;
 color:white;
 border-radius:6px;
 cursor:pointer;
+
 }
 
-.main{
+.sidebar button:hover{
+background:#4752c4;
+}
+
+.content{
+
 flex:1;
 padding:40px;
+
+}
+
+.page{
+display:none;
+}
+
+.cards{
+
+display:flex;
+gap:20px;
+
+}
+
+.card{
+
+background:#2b2d31;
+padding:20px;
+border-radius:10px;
+width:200px;
+
 }
 
 input,select,textarea{
 
 width:100%;
-padding:10px;
+padding:12px;
 margin-bottom:15px;
+background:#313338;
 border:none;
-border-radius:5px;
-background:#202225;
+border-radius:6px;
 color:white;
 
 }
 
 button{
+
+padding:12px;
 background:#5865f2;
 border:none;
-padding:12px;
 border-radius:6px;
 color:white;
 cursor:pointer;
+
 }
 
-button:hover{
-background:#4752c4;
+.presupuesto{
+
+background:#2b2d31;
+padding:15px;
+border-radius:8px;
+margin-bottom:15px;
+
 }
