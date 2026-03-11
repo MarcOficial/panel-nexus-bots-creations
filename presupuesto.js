@@ -12,25 +12,43 @@ function cargarDatos() {
 
     document.getElementById("numDoc").innerText = doc.numero;
     document.getElementById("fechaDoc").innerText = doc.fecha;
+
     document.getElementById("clienteNombre").innerText = doc.cliente || "";
     document.getElementById("clienteEmail").innerText = doc.email || "";
+    document.getElementById("clienteTelefono").innerText = doc.telefono || "";
+    document.getElementById("clienteDireccion").innerText = doc.direccion || "";
+
+    document.getElementById("tituloProyecto").innerText = doc.titulo || "";
     document.getElementById("descripcionDoc").innerText = doc.descripcion || "";
-    document.getElementById("tablaDesc").innerText = doc.descripcion || "";
-    document.getElementById("tablaPrecio").innerText = Number(doc.precio).toFixed(2) + " €";
+    document.getElementById("plazoDoc").innerText = doc.plazo || "";
+    document.getElementById("pagoDoc").innerText = doc.pago || "";
+    document.getElementById("notasDoc").innerText = doc.notas || "";
+    document.getElementById("estadoDoc").innerText = doc.estado || "Pendiente";
 
-    const subtotal = Number(doc.precio) || 0;
-    const iva = subtotal * 0.21;
-    const total = subtotal + iva;
-
-    document.getElementById("subtotal").innerText = subtotal.toFixed(2);
-    document.getElementById("iva").innerText = iva.toFixed(2);
-    document.getElementById("total").innerText = total.toFixed(2);
-
-    // Datos empresa
     document.getElementById("empresaNombre").innerText = cfg.empresa || "Nexus Bots Creations";
     document.getElementById("empresaCif").innerText = "CIF: " + (cfg.cif || "X1234567Z");
     document.getElementById("empresaDir").innerText = "Dirección: " + (cfg.direccion || "Calle Ejemplo 123, España");
     document.getElementById("empresaEmail").innerText = "Email: " + (cfg.email || "contacto@nexusbots.com");
+
+    const tbody = document.getElementById("tablaItemsPDF");
+    tbody.innerHTML = "";
+
+    (doc.items || []).forEach(item => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${item.descripcion}</td>
+            <td style="text-align:right;">${(item.precio || 0).toFixed(2)} €</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    const subtotal = doc.subtotal || (doc.items || []).reduce((acc, i) => acc + (i.precio || 0), 0);
+    const iva = doc.iva || subtotal * 0.21;
+    const total = doc.total || subtotal + iva;
+
+    document.getElementById("subtotal").innerText = subtotal.toFixed(2);
+    document.getElementById("iva").innerText = iva.toFixed(2);
+    document.getElementById("total").innerText = total.toFixed(2);
 }
 
 function generarPDF() {
