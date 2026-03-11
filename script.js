@@ -1,43 +1,47 @@
-function exportPDF(numero){
+function showSection(section) {
+    const content = document.getElementById("content");
 
-let p = presupuestos.find(x => x.numero == numero);
+    switch(section) {
+        case "dashboard":
+            content.innerHTML = "<h2>Dashboard</h2><p>Resumen general del sistema.</p>";
+            break;
 
-let doc = new jsPDF();
+        case "presupuesto":
+            content.innerHTML = `
+                <h2>Crear Presupuesto</h2>
+                <form id="formPresupuesto">
+                    <label>Cliente:</label><input type="text"><br>
+                    <label>Descripción:</label><textarea></textarea><br>
+                    <label>Precio:</label><input type="number"><br>
+                    <button type="submit">Generar Presupuesto</button>
+                </form>
+            `;
+            break;
 
-doc.setFontSize(22);
-doc.text("Nexus Bots Creations",20,20);
+        case "factura":
+            content.innerHTML = `
+                <h2>Crear Factura</h2>
+                <form id="formFactura">
+                    <label>Cliente:</label><input type="text"><br>
+                    <label>Concepto:</label><textarea></textarea><br>
+                    <label>Total:</label><input type="number"><br>
+                    <button type="submit">Generar Factura</button>
+                </form>
+            `;
+            break;
 
-doc.setFontSize(16);
-doc.text("Factura / Presupuesto",20,35);
+        case "historial":
+            content.innerHTML = "<h2>Historial</h2><p>Aquí aparecerán facturas y presupuestos guardados.</p>";
+            break;
 
-doc.line(20,40,190,40);
-
-doc.setFontSize(12);
-
-doc.text("Presupuesto Nº: NBC-"+p.numero,20,55);
-doc.text("Cliente: "+p.cliente,20,65);
-doc.text("Discord: "+p.discord,20,75);
-
-doc.line(20,85,190,85);
-
-doc.text("Servicio",20,100);
-doc.text("Descripción",80,100);
-doc.text("Precio",170,100);
-
-doc.line(20,105,190,105);
-
-doc.text(p.servicio,20,115);
-doc.text(p.descripcion,80,115);
-doc.text("€"+p.precio,170,115);
-
-doc.line(20,140,190,140);
-
-doc.setFontSize(14);
-doc.text("TOTAL: €"+p.precio,150,160);
-
-doc.setFontSize(10);
-doc.text("Método de pago: PayPal / Robux",20,180);
-
-doc.save("presupuesto-"+p.numero+".pdf");
-
+        case "config":
+            content.innerHTML = `
+                <h2>Configuración</h2>
+                <label>Nombre de la empresa:</label><input type="text"><br>
+                <label>Dirección:</label><input type="text"><br>
+                <label>NIF/CIF:</label><input type="text"><br>
+                <label>Logo:</label><input type="file"><br>
+            `;
+            break;
+    }
 }
