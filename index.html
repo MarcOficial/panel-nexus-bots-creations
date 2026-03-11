@@ -2,48 +2,45 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Nexus Bots Creations - Panel</title>
+<title>Nexus Bots Creations Panel</title>
+
 <link rel="stylesheet" href="style.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 
 <body>
 
-<header>
-<h1>Nexus Bots Creations</h1>
-<p>Panel de Presupuestos</p>
-</header>
+<div class="sidebar">
+<h2>Nexus</h2>
 
-<div class="container">
+<button onclick="mostrarPanel()">Crear presupuesto</button>
 
-<h2>Crear Presupuesto</h2>
+</div>
 
-<form id="presupuestoForm">
+<div class="main">
 
-<label>Cliente</label>
-<input type="text" id="cliente" required>
+<h1>Crear Presupuesto</h1>
 
-<label>Discord</label>
-<input type="text" id="discord">
+<form id="form">
 
-<label>Servicio</label>
+<input type="text" id="cliente" placeholder="Cliente" required>
+
+<input type="text" id="discord" placeholder="Discord">
+
 <select id="servicio">
 <option>Bot de Discord</option>
 <option>Texturas</option>
 </select>
 
-<label>Descripción</label>
-<textarea id="descripcion"></textarea>
+<textarea id="descripcion" placeholder="Descripción"></textarea>
 
-<label>Precio (€)</label>
-<input type="number" id="precio" required>
+<input type="number" id="precio" placeholder="Precio €" required>
 
 <button type="submit">Crear Presupuesto</button>
 
 </form>
-
-<h2>Presupuestos Guardados</h2>
-
-<ul id="lista"></ul>
 
 </div>
 
