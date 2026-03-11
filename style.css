@@ -1,94 +1,42 @@
-body{
-margin:0;
-font-family:Arial;
-background:#1e1f22;
-color:white;
-display:flex;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
 }
 
-.sidebar{
-width:230px;
-background:#2b2d31;
-height:100vh;
-padding:20px;
+header {
+    background: #1a1a1a;
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
 }
 
-.sidebar h2{
-margin-bottom:40px;
+.logo {
+    height: 60px;
+    margin-right: 20px;
 }
 
-.sidebar button{
-
-width:100%;
-padding:12px;
-margin-bottom:10px;
-border:none;
-background:#5865f2;
-color:white;
-border-radius:6px;
-cursor:pointer;
-
+nav {
+    background: #222;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
 }
 
-.sidebar button:hover{
-background:#4752c4;
+nav button {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 6px;
 }
 
-.content{
-
-flex:1;
-padding:40px;
-
+nav button:hover {
+    background: #666;
 }
 
-.page{
-display:none;
-}
-
-.cards{
-
-display:flex;
-gap:20px;
-
-}
-
-.card{
-
-background:#2b2d31;
-padding:20px;
-border-radius:10px;
-width:200px;
-
-}
-
-input,select,textarea{
-
-width:100%;
-padding:12px;
-margin-bottom:15px;
-background:#313338;
-border:none;
-border-radius:6px;
-color:white;
-
-}
-
-button{
-
-padding:12px;
-background:#5865f2;
-border:none;
-border-radius:6px;
-color:white;
-cursor:pointer;
-
-}
-
-.presupuesto{
-
-background:#2b2d31;
-padding:15px;
-border-radius:8px;
-margin-bottom:15px;
-
+#content {
+    padding: 20px;
 }
