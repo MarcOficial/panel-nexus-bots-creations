@@ -31,26 +31,91 @@ function showSection(section) {
         c.innerHTML = `
             <div class="card">
                 <h2>Nuevo Presupuesto</h2>
+
                 <form id="formPresupuesto">
-                    <label>Nombre del cliente</label>
+
+                    <h3>Datos del Cliente</h3>
+
+                    <label>Nombre completo</label>
                     <input type="text" name="cliente" required>
 
-                    <label>Email del cliente</label>
+                    <label>Email</label>
                     <input type="email" name="email">
 
-                    <label>Descripción</label>
+                    <label>Teléfono</label>
+                    <input type="text" name="telefono">
+
+                    <label>Dirección</label>
+                    <input type="text" name="direccion">
+
+                    <h3>Información del Proyecto</h3>
+
+                    <label>Título del proyecto</label>
+                    <input type="text" name="titulo" required>
+
+                    <label>Descripción general</label>
                     <textarea name="descripcion" required></textarea>
 
-                    <label>Precio (€)</label>
-                    <input type="number" name="precio" step="0.01" required>
+                    <label>Plazo estimado de entrega</label>
+                    <input type="text" name="plazo" placeholder="Ej: 7 días, 2 semanas, 1 mes">
+
+                    <label>Método de pago</label>
+                    <select name="pago">
+                        <option value="Transferencia bancaria">Transferencia bancaria</option>
+                        <option value="Bizum">Bizum</option>
+                        <option value="PayPal">PayPal</option>
+                        <option value="Criptomonedas">Criptomonedas</option>
+                    </select>
+
+                    <h3>Conceptos del Presupuesto</h3>
+
+                    <table id="tablaItems">
+                        <thead>
+                            <tr>
+                                <th>Concepto</th>
+                                <th style="width:120px;">Precio (€)</th>
+                                <th style="width:60px;">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" name="item_desc[]" required></td>
+                                <td><input type="number" name="item_precio[]" step="0.01" required></td>
+                                <td><button type="button" class="primary" onclick="eliminarFila(this)">X</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button type="button" class="primary" onclick="agregarFila()">Añadir concepto</button>
+
+                    <h3>Notas adicionales</h3>
+                    <textarea name="notas" placeholder="Condiciones, aclaraciones, detalles adicionales..."></textarea>
+
+                    <h3>Estado del presupuesto</h3>
+                    <select name="estado">
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Aceptado">Aceptado</option>
+                        <option value="Rechazado">Rechazado</option>
+                    </select>
 
                     <button type="submit" class="primary">Generar PDF de Presupuesto</button>
                 </form>
             </div>
         `;
+
         document.getElementById("formPresupuesto").addEventListener("submit", e => {
             e.preventDefault();
-            const data = Object.fromEntries(new FormData(e.target).entries());
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            const items_desc = [...document.getElementsByName("item_desc[]")].map(i => i.value);
+            const items_precio = [...document.getElementsByName("item_precio[]")].map(i => Number(i.value));
+
+            data.items = items_desc.map((desc, i) => ({
+                descripcion: desc,
+                precio: items_precio[i] || 0
+            }));
+
             crearDocumento("PRESUPUESTO", data);
         });
     }
@@ -59,26 +124,78 @@ function showSection(section) {
         c.innerHTML = `
             <div class="card">
                 <h2>Nueva Factura</h2>
+
                 <form id="formFactura">
-                    <label>Nombre del cliente</label>
+
+                    <h3>Datos del Cliente</h3>
+
+                    <label>Nombre completo</label>
                     <input type="text" name="cliente" required>
 
-                    <label>Email del cliente</label>
+                    <label>Email</label>
                     <input type="email" name="email">
 
-                    <label>Descripción</label>
+                    <label>Teléfono</label>
+                    <input type="text" name="telefono">
+
+                    <label>Dirección</label>
+                    <input type="text" name="direccion">
+
+                    <h3>Información de la Factura</h3>
+
+                    <label>Concepto general</label>
                     <textarea name="descripcion" required></textarea>
 
-                    <label>Precio (€)</label>
-                    <input type="number" name="precio" step="0.01" required>
+                    <label>Método de pago</label>
+                    <select name="pago">
+                        <option value="Transferencia bancaria">Transferencia bancaria</option>
+                        <option value="Bizum">Bizum</option>
+                        <option value="PayPal">PayPal</option>
+                        <option value="Criptomonedas">Criptomonedas</option>
+                    </select>
+
+                    <h3>Conceptos de la Factura</h3>
+
+                    <table id="tablaItemsFactura">
+                        <thead>
+                            <tr>
+                                <th>Concepto</th>
+                                <th style="width:120px;">Precio (€)</th>
+                                <th style="width:60px;">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" name="item_desc_f[]" required></td>
+                                <td><input type="number" name="item_precio_f[]" step="0.01" required></td>
+                                <td><button type="button" class="primary" onclick="eliminarFila(this)">X</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button type="button" class="primary" onclick="agregarFilaFactura()">Añadir concepto</button>
+
+                    <h3>Notas adicionales</h3>
+                    <textarea name="notas" placeholder="Condiciones, aclaraciones, detalles adicionales..."></textarea>
 
                     <button type="submit" class="primary">Generar PDF de Factura</button>
                 </form>
             </div>
         `;
+
         document.getElementById("formFactura").addEventListener("submit", e => {
             e.preventDefault();
-            const data = Object.fromEntries(new FormData(e.target).entries());
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            const items_desc = [...document.getElementsByName("item_desc_f[]")].map(i => i.value);
+            const items_precio = [...document.getElementsByName("item_precio_f[]")].map(i => Number(i.value));
+
+            data.items = items_desc.map((desc, i) => ({
+                descripcion: desc,
+                precio: items_precio[i] || 0
+            }));
+
             crearDocumento("FACTURA", data);
         });
     }
@@ -135,6 +252,33 @@ function showSection(section) {
     }
 }
 
+function agregarFila() {
+    const tbody = document.querySelector("#tablaItems tbody");
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+        <td><input type="text" name="item_desc[]" required></td>
+        <td><input type="number" name="item_precio[]" step="0.01" required></td>
+        <td><button type="button" class="primary" onclick="eliminarFila(this)">X</button></td>
+    `;
+    tbody.appendChild(tr);
+}
+
+function agregarFilaFactura() {
+    const tbody = document.querySelector("#tablaItemsFactura tbody");
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+        <td><input type="text" name="item_desc_f[]" required></td>
+        <td><input type="number" name="item_precio_f[]" step="0.01" required></td>
+        <td><button type="button" class="primary" onclick="eliminarFila(this)">X</button></td>
+    `;
+    tbody.appendChild(tr);
+}
+
+function eliminarFila(btn) {
+    const fila = btn.parentElement.parentElement;
+    fila.remove();
+}
+
 function cargarConfigEnFormulario() {
     const cfg = JSON.parse(localStorage.getItem("configEmpresa") || "{}");
     const f = document.getElementById("formConfig");
@@ -151,7 +295,7 @@ function cargarResumen() {
     const facturas = hist.filter(h => h.tipo === "FACTURA").length;
     const importe = hist
         .filter(h => h.tipo === "FACTURA")
-        .reduce((acc, h) => acc + Number(h.precio || 0), 0);
+        .reduce((acc, h) => acc + (h.total || 0), 0);
 
     document.getElementById("dashPresupuestos").innerText = presupuestos;
     document.getElementById("dashFacturas").innerText = facturas;
@@ -169,16 +313,19 @@ function cargarHistorial() {
             <td>${h.numero}</td>
             <td>${h.cliente}</td>
             <td>${h.fecha}</td>
-            <td>${Number(h.precio).toFixed(2)} €</td>
+            <td>${(h.total || 0).toFixed(2)} €</td>
         `;
         tbody.appendChild(tr);
     });
 }
 
-// Crear documento y abrir página de presupuesto/factura
 function crearDocumento(tipo, data) {
     const numero = generarNumero(tipo);
     const fecha = new Date().toLocaleDateString("es-ES");
+
+    const subtotal = (data.items || []).reduce((acc, i) => acc + (i.precio || 0), 0);
+    const iva = subtotal * 0.21;
+    const total = subtotal + iva;
 
     const doc = {
         tipo,
@@ -186,19 +333,26 @@ function crearDocumento(tipo, data) {
         fecha,
         cliente: data.cliente,
         email: data.email,
+        telefono: data.telefono,
+        direccion: data.direccion,
+        titulo: data.titulo,
         descripcion: data.descripcion,
-        precio: Number(data.precio)
+        plazo: data.plazo,
+        pago: data.pago,
+        notas: data.notas,
+        estado: data.estado,
+        items: data.items || [],
+        subtotal,
+        iva,
+        total
     };
 
-    // Guardar en historial
     const hist = JSON.parse(localStorage.getItem("historialDocs") || "[]");
     hist.push(doc);
     localStorage.setItem("historialDocs", JSON.stringify(hist));
 
-    // Guardar documento actual para la página de PDF
     localStorage.setItem("docActual", JSON.stringify(doc));
 
-    // Abrir página de generación de PDF
     window.open("presupuesto.html", "_blank");
 }
 
@@ -211,5 +365,4 @@ function generarNumero(tipo) {
     return `${pref}-${año}-${String(n).padStart(3, "0")}`;
 }
 
-// Cargar por defecto
 showSection("dashboard");
