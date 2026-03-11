@@ -1,6 +1,6 @@
-let presupuestos = [];
+const { jsPDF } = window.jspdf;
 
-document.getElementById("presupuestoForm").addEventListener("submit", function(e){
+document.getElementById("form").addEventListener("submit", function(e){
 
 e.preventDefault();
 
@@ -10,39 +10,27 @@ let servicio = document.getElementById("servicio").value;
 let descripcion = document.getElementById("descripcion").value;
 let precio = document.getElementById("precio").value;
 
-let presupuesto = {
-cliente,
-discord,
-servicio,
-descripcion,
-precio
-};
-
-presupuestos.push(presupuesto);
-
-mostrarPresupuestos();
-
-this.reset();
+crearPDF(cliente,discord,servicio,descripcion,precio);
 
 });
 
-function mostrarPresupuestos(){
+function crearPDF(cliente,discord,servicio,descripcion,precio){
 
-let lista = document.getElementById("lista");
-lista.innerHTML="";
+let doc = new jsPDF();
 
-presupuestos.forEach(p =>{
+doc.setFontSize(20);
+doc.text("Nexus Bots Creations",20,20);
 
-let li = document.createElement("li");
+doc.setFontSize(12);
 
-li.innerHTML = `
-<strong>${p.cliente}</strong> - ${p.servicio} - €${p.precio}
-<br>
-${p.descripcion}
-`;
+doc.text("Cliente: "+cliente,20,40);
+doc.text("Discord: "+discord,20,50);
+doc.text("Servicio: "+servicio,20,60);
+doc.text("Descripción: "+descripcion,20,70);
+doc.text("Precio: €"+precio,20,80);
 
-lista.appendChild(li);
+doc.text("Método de pago: PayPal / Robux",20,100);
 
-});
+doc.save("presupuesto.pdf");
 
 }
