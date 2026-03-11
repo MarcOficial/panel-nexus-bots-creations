@@ -11,7 +11,7 @@ body {
     color: #1f2937;
 }
 
-/* LAYOUT */
+/* LAYOUT GENERAL */
 .layout {
     display: flex;
     height: 100vh;
@@ -38,9 +38,17 @@ body {
     margin-bottom: 10px;
 }
 
+.sidebar-header h2 {
+    font-size: 20px;
+}
+
 .tagline {
     font-size: 12px;
     opacity: 0.7;
+}
+
+.menu {
+    margin-top: 10px;
 }
 
 .menu button {
@@ -73,7 +81,13 @@ body {
     opacity: 0.6;
 }
 
-/* TOPBAR */
+/* CONTENT / TOPBAR */
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 .topbar {
     background: white;
     padding: 15px 25px;
@@ -83,6 +97,10 @@ body {
     border-bottom: 1px solid #e5e7eb;
 }
 
+.topbar h1 {
+    font-size: 22px;
+}
+
 .user-box {
     display: flex;
     align-items: center;
@@ -90,13 +108,7 @@ body {
     font-weight: bold;
 }
 
-/* CONTENT */
-.content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
+/* CONTENT AREA */
 .content-area {
     padding: 25px;
     overflow-y: auto;
@@ -112,13 +124,29 @@ body {
     animation: fadeInUp 0.4s ease;
 }
 
+.card h2 {
+    margin-bottom: 10px;
+}
+
+.subtext {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+
+/* GRID */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 20px;
 }
 
-/* INPUTS */
+/* FORMULARIOS */
+label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
 input, textarea, select {
     width: 100%;
     padding: 10px;
@@ -133,7 +161,7 @@ textarea {
     min-height: 100px;
 }
 
-/* BUTTONS */
+/* BOTONES */
 button.primary {
     background: #2563eb;
     color: white;
@@ -150,7 +178,7 @@ button.primary:hover {
     transform: scale(1.03);
 }
 
-/* TABLES */
+/* TABLAS */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -183,6 +211,44 @@ th {
 .badge.factura {
     background: #fee2e2;
     color: #b91c1c;
+}
+
+/* HISTORIAL BOTONES */
+.tabla-historial td button {
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-right: 5px;
+    transition: 0.2s;
+}
+
+.btn-edit {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-edit:hover {
+    background: #1d4ed8;
+}
+
+.btn-delete {
+    background: #dc2626;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #b91c1c;
+}
+
+.btn-download {
+    background: #059669;
+    color: white;
+}
+
+.btn-download:hover {
+    background: #047857;
 }
 
 /* ANIMACIONES */
