@@ -2,27 +2,37 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Nexus Bots Creations - Panel</title>
+    <title>Nexus Bots Creations – Panel</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="Nexus Bots Creations.png">
 </head>
 <body>
 
 <header>
-    <img src="Nexus Bots Creations.png" class="logo">
-    <h1>Nexus Bots Creations – Panel Oficial</h1>
+    <div class="logo-box">
+        <img src="Nexus Bots Creations.png" alt="Logo Nexus Bots Creations" class="logo">
+        <div>
+            <h1>Nexus Bots Creations</h1>
+            <div class="sub">Panel oficial de facturas y presupuestos</div>
+        </div>
+    </div>
 </header>
 
 <nav>
     <button onclick="showSection('dashboard')">Dashboard</button>
-    <button onclick="showSection('presupuesto')">Crear Presupuesto</button>
-    <button onclick="showSection('factura')">Crear Factura</button>
+    <button onclick="showSection('nuevoPresupuesto')">Nuevo Presupuesto</button>
+    <button onclick="showSection('nuevaFactura')">Nueva Factura</button>
     <button onclick="showSection('historial')">Historial</button>
     <button onclick="showSection('config')">Configuración</button>
 </nav>
 
 <main id="content">
-    <!-- Aquí se cargan las secciones dinámicamente -->
+    <!-- Contenido dinámico -->
 </main>
+
+<footer>
+    © <span id="year"></span> Nexus Bots Creations – Documento generado automáticamente
+</footer>
 
 <script src="script.js"></script>
 </body>
