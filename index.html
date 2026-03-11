@@ -2,37 +2,59 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Nexus Bots Creations – Panel</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Nexus Bots Creations – Panel Oficial</title>
+
+    <!-- Icono -->
     <link rel="icon" type="image/png" href="Nexus Bots Creations.png">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
 
-<header>
-    <div class="logo-box">
-        <img src="Nexus Bots Creations.png" alt="Logo Nexus Bots Creations" class="logo">
-        <div>
-            <h1>Nexus Bots Creations</h1>
-            <div class="sub">Panel oficial de facturas y presupuestos</div>
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="Nexus Bots Creations.png" class="sidebar-logo">
+            <h2>Nexus Bots</h2>
+            <p class="tagline">Panel Oficial</p>
         </div>
-    </div>
-</header>
 
-<nav>
-    <button onclick="showSection('dashboard')">Dashboard</button>
-    <button onclick="showSection('nuevoPresupuesto')">Nuevo Presupuesto</button>
-    <button onclick="showSection('nuevaFactura')">Nueva Factura</button>
-    <button onclick="showSection('historial')">Historial</button>
-    <button onclick="showSection('config')">Configuración</button>
-</nav>
+        <nav class="menu">
+            <button onclick="showSection('dashboard')"><i class="fa-solid fa-chart-line"></i> Dashboard</button>
+            <button onclick="showSection('nuevoPresupuesto')"><i class="fa-solid fa-file-invoice-dollar"></i> Nuevo Presupuesto</button>
+            <button onclick="showSection('nuevaFactura')"><i class="fa-solid fa-file-invoice"></i> Nueva Factura</button>
+            <button onclick="showSection('historial')"><i class="fa-solid fa-clock-rotate-left"></i> Historial</button>
+            <button onclick="showSection('config')"><i class="fa-solid fa-gear"></i> Configuración</button>
+        </nav>
 
-<main id="content">
-    <!-- Contenido dinámico -->
-</main>
+        <footer class="sidebar-footer">
+            <p>© <span id="year"></span> Nexus Bots Creations</p>
+        </footer>
+    </aside>
 
-<footer>
-    © <span id="year"></span> Nexus Bots Creations – Documento generado automáticamente
-</footer>
+    <!-- CONTENIDO -->
+    <main class="content">
+        <header class="topbar">
+            <h1 id="pageTitle">Dashboard</h1>
+            <div class="user-box">
+                <i class="fa-solid fa-user-robot"></i>
+                <span>Asistencia</span>
+            </div>
+        </header>
+
+        <section id="content" class="content-area">
+            <!-- Contenido dinámico -->
+        </section>
+    </main>
+
+</div>
 
 <script src="script.js"></script>
 </body>
