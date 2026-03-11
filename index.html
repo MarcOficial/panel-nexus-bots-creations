@@ -13,13 +13,35 @@
 <body>
 
 <div class="sidebar">
-<h2>Nexus</h2>
 
-<button onclick="mostrarPanel()">Crear presupuesto</button>
+<h2>NEXUS</h2>
+
+<button onclick="showPage('dashboard')">Dashboard</button>
+<button onclick="showPage('crear')">Crear Presupuesto</button>
+<button onclick="showPage('lista')">Presupuestos</button>
 
 </div>
 
-<div class="main">
+
+<div class="content">
+
+<div id="dashboard" class="page">
+
+<h1>Dashboard</h1>
+
+<div class="cards">
+
+<div class="card">
+<h3>Total Presupuestos</h3>
+<p id="total"></p>
+</div>
+
+</div>
+
+</div>
+
+
+<div id="crear" class="page">
 
 <h1>Crear Presupuesto</h1>
 
@@ -30,17 +52,32 @@
 <input type="text" id="discord" placeholder="Discord">
 
 <select id="servicio">
+
 <option>Bot de Discord</option>
 <option>Texturas</option>
+<option>Pack completo</option>
+
 </select>
 
 <textarea id="descripcion" placeholder="Descripción"></textarea>
 
 <input type="number" id="precio" placeholder="Precio €" required>
 
-<button type="submit">Crear Presupuesto</button>
+<button type="submit">Crear presupuesto</button>
 
 </form>
+
+</div>
+
+
+<div id="lista" class="page">
+
+<h1>Presupuestos</h1>
+
+<div id="presupuestos"></div>
+
+</div>
+
 
 </div>
 
